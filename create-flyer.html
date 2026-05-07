@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>チラシ制作 — Instant Design</title>
+  <meta name="description" content="チラシ制作のためのヒアリング。所要時間5分。">
+  <link rel="stylesheet" href="assets/css/main.css?v=20260507-3">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow reveal">Step 02 / チラシ制作</div>
+      <h1 class="page-head__title reveal">あなたのチラシを<br>つくります。</h1>
+      <p class="prose reveal" style="text-align:center; color:var(--color-muted); margin-top:var(--sp-4);">
+        所要時間 約5分。回答後にAIがラフを3案生成します。<br>
+        わかる範囲でかまいません。空欄の項目はAIが補完します。
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form class="form-page"
+            data-product-kind="flyer"
+            action="#"
+            method="POST">
+        <input type="hidden" name="_subject" value="【Instant Design】チラシ制作リクエスト">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="thanks.html">
+        <input type="hidden" name="制作種別" value="チラシ (¥3,000)">
+
+        <!-- Section 01 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 01</div>
+            <h2 class="form-section__title">基本情報</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="purpose">チラシの目的<span class="field__badge field__badge--style">設計に反映</span></label>
+              <input id="purpose" name="目的" type="text" required placeholder="例:店舗オープン告知 / イベント集客 / 採用">
+            </div>
+
+            <div class="field field--required">
+              <label for="brand-name">会社名 / 店舗名 / サービス名<span class="field__badge">表示</span></label>
+              <input id="brand-name" name="ブランド名" type="text" required>
+            </div>
+
+            <div class="field">
+              <label>サイズ</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="サイズ" value="A4" checked><span class="chip">A4</span></label>
+                <label><input type="radio" name="サイズ" value="A5"><span class="chip">A5</span></label>
+                <label><input type="radio" name="サイズ" value="B5"><span class="chip">B5</span></label>
+                <label><input type="radio" name="サイズ" value="ハガキ"><span class="chip">ハガキ</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>向き</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="向き" value="縦" checked><span class="chip">縦</span></label>
+                <label><input type="radio" name="向き" value="横"><span class="chip">横</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>面数</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="面数" value="片面" checked><span class="chip">片面</span></label>
+                <label><input type="radio" name="面数" value="両面"><span class="chip">両面</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 02 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 02</div>
+            <h2 class="form-section__title">デザインに表示する文字</h2>
+          </div>
+
+          <p class="section-callout">
+            <strong>このセクションで入力した文字は、チラシ内にそのまま掲載されます。</strong><br>
+            入力した日本語のままレイアウトされるので、表記をそのままご記入ください。
+          </p>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="catch">一番伝えたいメッセージ(キャッチコピー)<span class="field__badge">表示</span></label>
+              <input id="catch" name="キャッチコピー" type="text" required placeholder="例:7月1日、新オープン。">
+            </div>
+
+            <div class="field">
+              <label for="subcatch">サブキャッチ<span class="field__badge">表示</span></label>
+              <input id="subcatch" name="サブキャッチ" type="text" placeholder="例:こだわりの自家焙煎コーヒーを、街角で。">
+            </div>
+
+            <div class="field field--required">
+              <label for="body">本文・詳細情報<span class="field__badge">表示</span></label>
+              <textarea id="body" name="本文" required placeholder="商品/サービスの説明、特徴、強み、価格、メニューなど"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="event-info">日時・場所・料金等<span class="field__badge">表示</span></label>
+              <textarea id="event-info" name="日時場所料金" placeholder="例:2026年7月1日(水) 10:00–20:00 / 東京都渋谷区... / 入場無料"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="contact-info">連絡先(電話・メール・Web・SNS)<span class="field__badge">表示</span></label>
+              <textarea id="contact-info" name="連絡先" placeholder="例:TEL 03-XXXX-XXXX / @instagram_id / https://example.com"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 03 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 03</div>
+            <h2 class="form-section__title">デザインの方向性</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label for="target">想定する読み手</label>
+              <input id="target" name="ターゲット" type="text" placeholder="例:近隣の主婦層 / 学生 / 経営者">
+            </div>
+
+            <div class="field">
+              <label>テイスト(複数可)</label>
+              <div class="chip-group" role="group">
+                <label><input type="checkbox" name="テイスト" value="シンプル"><span class="chip">シンプル</span></label>
+                <label><input type="checkbox" name="テイスト" value="高級感"><span class="chip">高級感</span></label>
+                <label><input type="checkbox" name="テイスト" value="親しみやすい"><span class="chip">親しみやすい</span></label>
+                <label><input type="checkbox" name="テイスト" value="POPで楽しい"><span class="chip">POPで楽しい</span></label>
+                <label><input type="checkbox" name="テイスト" value="信頼感"><span class="chip">信頼感</span></label>
+                <label><input type="checkbox" name="テイスト" value="和風"><span class="chip">和風</span></label>
+                <label><input type="checkbox" name="テイスト" value="ナチュラル"><span class="chip">ナチュラル</span></label>
+                <label><input type="checkbox" name="テイスト" value="モダン"><span class="chip">モダン</span></label>
+                <label><input type="checkbox" name="テイスト" value="お得感重視"><span class="chip">お得感重視</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>カラーの方向性</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="カラー方向" value="モノクロ"><span class="chip">モノクロ</span></label>
+                <label><input type="radio" name="カラー方向" value="暖色系"><span class="chip">暖色系</span></label>
+                <label><input type="radio" name="カラー方向" value="寒色系"><span class="chip">寒色系</span></label>
+                <label><input type="radio" name="カラー方向" value="アースカラー"><span class="chip">アースカラー</span></label>
+                <label><input type="radio" name="カラー方向" value="ビビッド"><span class="chip">ビビッド</span></label>
+                <label><input type="radio" name="カラー方向" value="パステル"><span class="chip">パステル</span></label>
+                <label><input type="radio" name="カラー方向" value="お任せ" checked><span class="chip">お任せ</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="color-detail">指定カラー・コーポレートカラー</label>
+              <input id="color-detail" name="指定カラー" type="text" placeholder="例:#FF5A1F / 紺色">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 04 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 04</div>
+            <h2 class="form-section__title">参考・補足</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label for="reference">参考にしたいデザイン</label>
+              <textarea id="reference" name="参考" placeholder="参考URL、雰囲気の説明など自由に"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="logo-asset">ロゴ・写真素材の有無</label>
+              <input id="logo-asset" name="素材" type="text" placeholder="例:ロゴあり(別途送付) / 写真は AI 生成でOK">
+            </div>
+
+            <div class="field">
+              <label for="ng">避けたい表現・NG要素</label>
+              <input id="ng" name="NG要素" type="text">
+            </div>
+
+            <div class="field">
+              <label for="note">その他、伝えたいこと</label>
+              <textarea id="note" name="自由記述"></textarea>
+            </div>
+
+            <div class="field field--required">
+              <label for="email">ご連絡先メールアドレス</label>
+              <input id="email" name="メールアドレス" type="email" required autocomplete="email">
+              <div class="field__hint">ラフ3案の納品先になります。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="create.html" class="form-back">← 戻る</a>
+          <button type="submit" class="btn btn--primary">ラフ3案を生成する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div>
+        <div class="site-footer__brand"></div>
+        <div class="site-footer__tag">手軽に起業できる世界のために。</div>
+      </div>
+      <nav class="site-footer__nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260507-3"></script>
+<script src="assets/js/submit.js?v=20260507-3"></script>
+</body>
+</html>

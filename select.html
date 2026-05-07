@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>選択した案を改善 — Instant Design</title>
+  <link rel="stylesheet" href="assets/css/main.css?v=20260507-3">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow reveal">Step 04 / 選択した案を改善</div>
+      <h1 class="page-head__title reveal">どこを<br>磨きますか？</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="preview-stage">
+
+        <div>
+          <div class="preview-stage__media" id="preview-media" data-aspect="1:1">
+            <img id="preview-img" alt="">
+            <div class="text-overlay" data-overlay></div>
+          </div>
+        </div>
+
+        <div class="preview-stage__side">
+          <h2 id="preview-title" style="font-size:var(--fs-xl); margin-bottom:var(--sp-2);">…</h2>
+          <p style="color:var(--color-muted); font-size:var(--fs-sm);">
+            選択した案をもとに、本制作版を生成します。<br>
+            気に入った点・直したい点を入力すると、AIが反映してより精度の高いデザインを作ります。
+          </p>
+
+          <form class="feedback-form" id="feedback-form">
+            <div class="field">
+              <label for="liked">気に入った点</label>
+              <textarea id="liked" name="liked" placeholder="例:配色のバランス / 余白の使い方 / 全体の雰囲気"></textarea>
+            </div>
+            <div class="field">
+              <label for="changes">直したい点・追加したい点</label>
+              <textarea id="changes" name="changes" placeholder="例:キャッチコピーをもっと大きく / 緑をもう少し控えめに / コーヒー豆のイラストを追加"></textarea>
+            </div>
+            <div class="field">
+              <label for="tone">トーンの調整(任意)</label>
+              <input id="tone" name="tone" placeholder="例:もっと高級感 / もっとカジュアル">
+            </div>
+
+            <div class="form-actions" style="border-top:none; padding-top:0; margin-top:var(--sp-2);">
+              <a href="result.html" class="form-back">← 3案に戻る</a>
+              <button type="submit" class="btn btn--primary">本制作を生成する</button>
+            </div>
+            <p class="feedback-form__hint">
+              生成には60〜120秒ほどかかります。空欄の場合は選択した案をそのまま改良します。
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260507-3"></script>
+<script>
+(() => {
+  const API_BASE = "http://localhost:3000";
+  const raw = sessionStorage.getItem("instantDesign:result");
+  const idx = Number(sessionStorage.getItem("instantDesign:selectedIndex"));
+  if (!raw || Number.isNaN(idx)) { location.href = "create.html"; return; }
+  const data = JSON.parse(raw);
+  const draft = data.drafts[idx];
+  const aspect = data.aspect || (data.kind === "flyer" ? "2:3" : "1:1");
+
+  const media  = document.getElementById("preview-media");
+  const img    = document.getElementById("preview-img");
+  const title  = document.getElementById("preview-title");
+  const overlay = media.querySelector("[data-overlay]");
+
+  media.dataset.aspect = aspect;
+  media.style.background = draft.bg_color || "#fafafa";
+  img.src = `${API_BASE}${draft.url}`;
+  img.alt = draft.title || "";
+  title.textContent = `${{flyer:"チラシ", logo:"ロゴ"}[data.kind] || "デザイン"}:${draft.title || ""}`;
+  renderLayers(draft.layers || [], overlay);
+
+  document.getElementById("feedback-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const fb = {
+      liked:   document.getElementById("liked").value.trim(),
+      changes: document.getElementById("changes").value.trim(),
+      tone:    document.getElementById("tone").value.trim(),
+    };
+    sessionStorage.setItem("instantDesign:feedback", JSON.stringify(fb));
+    location.href = "final.html";
+  });
+
+  function renderLayers(layers, container) {
+    layers.forEach((l) => {
+      if (!l || !l.text) return;
+      const el = document.createElement("span");
+      el.className = "overlay-text";
+      el.textContent = l.text;
+      const ffMap = {
+        serif:        '"Hiragino Mincho ProN", "Yu Mincho", serif',
+        display:      '"Helvetica Neue", "Hiragino Sans", system-ui, sans-serif',
+        "sans-serif": '"Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif',
+      };
+      Object.assign(el.style, {
+        left: `${(l.x ?? 0.5) * 100}%`,
+        top:  `${(l.y ?? 0.5) * 100}%`,
+        width: `${(l.width ?? 0.85) * 100}%`,
+        fontSize: `${(l.fontSize ?? 0.04) * 100}cqw`,
+        color: l.color || "#111",
+        fontWeight: l.weight === "bold" ? "700" : "400",
+        textAlign: l.align || "center",
+        fontFamily: ffMap[l.fontFamily] || ffMap["sans-serif"],
+        letterSpacing: l.letterSpacing != null ? `${l.letterSpacing}em` : "0",
+      });
+      container.appendChild(el);
+    });
+  }
+})();
+</script>
+</body>
+</html>

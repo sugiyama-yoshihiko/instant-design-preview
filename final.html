@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本制作 — Instant Design</title>
+  <link rel="stylesheet" href="assets/css/main.css?v=20260507-3">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow">Step 05 / 本制作</div>
+      <h1 class="page-head__title" id="result-title">本制作を生成中…</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div id="status" class="result-status">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="result-status__msg">フィードバックを反映した本制作版を生成しています。</p>
+        <p class="result-status__sub">通常 60〜120 秒ほどかかります。</p>
+      </div>
+
+      <div id="final" class="preview-stage" style="display:none;">
+        <div>
+          <div class="preview-stage__media" id="final-media" data-aspect="1:1">
+            <img id="final-img" alt="">
+            <div class="text-overlay" data-overlay></div>
+          </div>
+        </div>
+        <div class="preview-stage__side">
+          <h2 id="final-title" style="font-size:var(--fs-xl); margin-bottom:var(--sp-3);">…</h2>
+          <p style="color:var(--color-muted); font-size:var(--fs-sm);">
+            本制作版が完成しました。<br>
+            内容を確認のうえ、ダウンロードしてください。
+          </p>
+
+          <div class="download-actions">
+            <button class="btn btn--primary" id="download-png">PNG をダウンロード</button>
+            <button class="btn btn--ghost"  id="download-bg">背景画像のみダウンロード</button>
+          </div>
+
+          <p style="font-size:var(--fs-xs); color:var(--color-muted); margin-top:var(--sp-4);">
+            ※ 文字レイヤーは画像と分離しています。Canva 等で再編集される場合は、<br>
+            「背景画像のみダウンロード」を使い、Canva 上でテキストを追加してください。
+          </p>
+
+          <div style="margin-top:var(--sp-5); padding-top:var(--sp-5); border-top:1px solid var(--color-line);">
+            <a href="select.html" class="form-back">← フィードバックを再入力</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="error-box" style="display:none; text-align:center;">
+        <p id="error-msg" style="color:var(--color-fg); font-size:var(--fs-lg);"></p>
+        <p style="color:var(--color-muted); font-size:var(--fs-sm); margin-top:var(--sp-3);">
+          バックエンドが起動しているか確認してください(http://localhost:3000/api/health)。
+        </p>
+        <p style="margin-top:var(--sp-5);"><a href="select.html" class="btn btn--ghost">前の画面に戻る</a></p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260507-3"></script>
+<script>
+(() => {
+  const API_BASE = "http://localhost:3000";
+  const KIND_LABEL = { flyer: "チラシ", logo: "ロゴ" };
+
+  const resultRaw = sessionStorage.getItem("instantDesign:result");
+  const idx = Number(sessionStorage.getItem("instantDesign:selectedIndex"));
+  const fb  = JSON.parse(sessionStorage.getItem("instantDesign:feedback") || "{}");
+  if (!resultRaw || Number.isNaN(idx)) { location.href = "create.html"; return; }
+  const data = JSON.parse(resultRaw);
+  const selectedDraft = data.drafts[idx];
+
+  const statusEl = document.getElementById("status");
+  const finalEl  = document.getElementById("final");
+  const errEl    = document.getElementById("error-box");
+  const errMsg   = document.getElementById("error-msg");
+  const titleEl  = document.getElementById("result-title");
+
+  fetch(`${API_BASE}/api/render/${data.kind}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ form: data.form, selectedDraft, feedback: fb }),
+  })
+    .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
+    .then(({ ok, d }) => {
+      if (!ok) throw new Error(d.error || "本制作の生成に失敗しました");
+      sessionStorage.setItem("instantDesign:final", JSON.stringify(d));
+      renderFinal(d);
+    })
+    .catch((err) => {
+      titleEl.textContent = "生成に失敗しました";
+      statusEl.style.display = "none";
+      errEl.style.display = "block";
+      errMsg.textContent = err.message;
+    });
+
+  function renderFinal(d) {
+    const f = d.final;
+    titleEl.textContent = `${KIND_LABEL[d.kind] || "デザイン"}本制作版`;
+    document.getElementById("final-title").textContent = f.title;
+    statusEl.style.display = "none";
+    finalEl.style.display = "grid";
+
+    const media = document.getElementById("final-media");
+    media.dataset.aspect = d.aspect || "1:1";
+    media.style.background = f.bg_color || "#fff";
+    document.getElementById("final-img").src = `${API_BASE}${f.url}`;
+    renderLayers(f.layers || [], media.querySelector("[data-overlay]"));
+
+    document.getElementById("download-bg").addEventListener("click", () => {
+      window.open(`${API_BASE}${f.url}`, "_blank");
+    });
+    document.getElementById("download-png").addEventListener("click", () => downloadComposite(d));
+  }
+
+  function renderLayers(layers, container) {
+    container.innerHTML = "";
+    layers.forEach((l) => {
+      if (!l || !l.text) return;
+      const el = document.createElement("span");
+      el.className = "overlay-text";
+      el.textContent = l.text;
+      const ffMap = {
+        serif:        '"Hiragino Mincho ProN", "Yu Mincho", serif',
+        display:      '"Helvetica Neue", "Hiragino Sans", system-ui, sans-serif',
+        "sans-serif": '"Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif',
+      };
+      Object.assign(el.style, {
+        left: `${(l.x ?? 0.5) * 100}%`,
+        top:  `${(l.y ?? 0.5) * 100}%`,
+        width: `${(l.width ?? 0.85) * 100}%`,
+        fontSize: `${(l.fontSize ?? 0.04) * 100}cqw`,
+        color: l.color || "#111",
+        fontWeight: l.weight === "bold" ? "700" : "400",
+        textAlign: l.align || "center",
+        fontFamily: ffMap[l.fontFamily] || ffMap["sans-serif"],
+        letterSpacing: l.letterSpacing != null ? `${l.letterSpacing}em` : "0",
+      });
+      container.appendChild(el);
+    });
+  }
+
+  /** Canvas で背景画像 + テキストを合成して PNG ダウンロード */
+  async function downloadComposite(d) {
+    const f = d.final;
+    const aspect = d.aspect || "1:1";
+    const [aw, ah] = aspect.split(":").map(Number);
+    const W = 1080, H = Math.round(1080 * (ah / aw));
+    const cv = document.createElement("canvas");
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext("2d");
+
+    ctx.fillStyle = f.bg_color || "#fff";
+    ctx.fillRect(0, 0, W, H);
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    await new Promise((res, rej) => {
+      img.onload = res; img.onerror = rej;
+      img.src = `${API_BASE}${f.url}?_=${Date.now()}`;
+    }).catch(() => { /* CORS等で失敗しても背景色のみで継続 */ });
+    if (img.complete && img.naturalWidth) ctx.drawImage(img, 0, 0, W, H);
+
+    (f.layers || []).forEach((l) => {
+      if (!l || !l.text) return;
+      const fontSize = (l.fontSize ?? 0.04) * W;
+      const ffMap = {
+        serif:        '"Hiragino Mincho ProN", "Yu Mincho", serif',
+        display:      '"Helvetica Neue", "Hiragino Sans", system-ui, sans-serif',
+        "sans-serif": '"Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif',
+      };
+      ctx.font = `${l.weight === "bold" ? "700" : "400"} ${fontSize}px ${ffMap[l.fontFamily] || ffMap["sans-serif"]}`;
+      ctx.fillStyle = l.color || "#111";
+      ctx.textAlign = (l.align || "center");
+      ctx.textBaseline = "middle";
+      const cx = (l.x ?? 0.5) * W;
+      const cy = (l.y ?? 0.5) * H;
+      const maxW = (l.width ?? 0.85) * W;
+      const lines = wrapLines(ctx, l.text, maxW);
+      const lineH = fontSize * 1.3;
+      lines.forEach((line, i) => {
+        const y = cy + (i - (lines.length - 1) / 2) * lineH;
+        ctx.fillText(line, cx, y);
+      });
+    });
+
+    const link = document.createElement("a");
+    link.download = `${d.kind}-${Date.now()}.png`;
+    link.href = cv.toDataURL("image/png");
+    link.click();
+  }
+
+  function wrapLines(ctx, text, maxWidth) {
+    // 日本語向けに文字単位で折り返す
+    const lines = [];
+    let line = "";
+    for (const ch of text) {
+      if (ch === "\n") { lines.push(line); line = ""; continue; }
+      const test = line + ch;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line); line = ch;
+      } else line = test;
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+})();
+</script>
+</body>
+</html>

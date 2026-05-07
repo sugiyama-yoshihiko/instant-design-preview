@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ロゴ制作 — Instant Design</title>
+  <meta name="description" content="ロゴ制作のためのヒアリング。所要時間5分。">
+  <link rel="stylesheet" href="assets/css/main.css?v=20260507-3">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow reveal">Step 02 / ロゴ制作</div>
+      <h1 class="page-head__title reveal">あなたのロゴを<br>つくります。</h1>
+      <p class="prose reveal" style="text-align:center; color:var(--color-muted); margin-top:var(--sp-4);">
+        所要時間 約5分。回答後にAIがラフを3案生成します。<br>
+        わかる範囲でかまいません。空欄の項目はAIが補完します。
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form class="form-page"
+            data-product-kind="logo"
+            action="#"
+            method="POST">
+        <input type="hidden" name="_subject" value="【Instant Design】ロゴ制作リクエスト">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="thanks.html">
+        <input type="hidden" name="制作種別" value="ロゴ (¥5,000)">
+
+        <!-- Section 01 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 01</div>
+            <h2 class="form-section__title">基本情報</h2>
+          </div>
+
+          <p class="section-callout">
+            <strong>「表示」のついた項目は、ロゴ内にそのまま描かれます。</strong><br>
+            「設計に反映」の項目は、デザインの方向性を決めるための情報として使われます(ロゴ内には文字として現れません)。
+          </p>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="brand-name">ブランド名 / 会社名<span class="field__badge">表示</span></label>
+              <input id="brand-name" name="ブランド名" type="text" required>
+              <div class="field__hint">ロゴに入れる正式表記でご記入ください(そのまま描かれます)。</div>
+            </div>
+
+            <div class="field">
+              <label for="tagline">タグライン / サブネーム<span class="field__badge">表示</span></label>
+              <input id="tagline" name="タグライン" type="text" placeholder="例:Coffee &amp; Roastery / since 2026">
+              <div class="field__hint">ロゴ下に併記したい文言があれば。なければ空欄でOK。</div>
+            </div>
+
+            <div class="field field--required">
+              <label for="industry">業種・事業内容<span class="field__badge field__badge--style">設計に反映</span></label>
+              <input id="industry" name="業種" type="text" required placeholder="例:カフェ / SaaS / 美容サロン">
+            </div>
+
+            <div class="field">
+              <label for="target">想定する顧客像<span class="field__badge field__badge--style">設計に反映</span></label>
+              <input id="target" name="ターゲット" type="text" placeholder="例:20代女性、都内在住、感度高め">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 02 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 02</div>
+            <h2 class="form-section__title">デザインの方向性</h2>
+            <p class="form-section__desc">複数選択可。当てはまるものを選んでください。</p>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label>ロゴのタイプ</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="ロゴタイプ" value="ワードマーク(文字のみ)"><span class="chip">ワードマーク(文字のみ)</span></label>
+                <label><input type="radio" name="ロゴタイプ" value="シンボル+文字"><span class="chip">シンボル+文字</span></label>
+                <label><input type="radio" name="ロゴタイプ" value="シンボルのみ"><span class="chip">シンボルのみ</span></label>
+                <label><input type="radio" name="ロゴタイプ" value="お任せ" checked><span class="chip">お任せ</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>テイスト(複数可)</label>
+              <div class="chip-group" role="group">
+                <label><input type="checkbox" name="テイスト" value="ミニマル"><span class="chip">ミニマル</span></label>
+                <label><input type="checkbox" name="テイスト" value="モダン"><span class="chip">モダン</span></label>
+                <label><input type="checkbox" name="テイスト" value="クラシック"><span class="chip">クラシック</span></label>
+                <label><input type="checkbox" name="テイスト" value="高級感"><span class="chip">高級感</span></label>
+                <label><input type="checkbox" name="テイスト" value="親しみやすい"><span class="chip">親しみやすい</span></label>
+                <label><input type="checkbox" name="テイスト" value="手書き風"><span class="chip">手書き風</span></label>
+                <label><input type="checkbox" name="テイスト" value="幾何学的"><span class="chip">幾何学的</span></label>
+                <label><input type="checkbox" name="テイスト" value="和風"><span class="chip">和風</span></label>
+                <label><input type="checkbox" name="テイスト" value="ポップ"><span class="chip">ポップ</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>カラーの方向性</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="カラー方向" value="モノクロ"><span class="chip">モノクロ</span></label>
+                <label><input type="radio" name="カラー方向" value="暖色系"><span class="chip">暖色系</span></label>
+                <label><input type="radio" name="カラー方向" value="寒色系"><span class="chip">寒色系</span></label>
+                <label><input type="radio" name="カラー方向" value="アースカラー"><span class="chip">アースカラー</span></label>
+                <label><input type="radio" name="カラー方向" value="ビビッド"><span class="chip">ビビッド</span></label>
+                <label><input type="radio" name="カラー方向" value="パステル"><span class="chip">パステル</span></label>
+                <label><input type="radio" name="カラー方向" value="お任せ" checked><span class="chip">お任せ</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="color-detail">指定カラーがあれば</label>
+              <input id="color-detail" name="指定カラー" type="text" placeholder="例:#FF5A1F / 紺色 / コーポレートカラーあり">
+            </div>
+
+            <div class="field">
+              <label for="keywords">ブランドを表すキーワード(3つほど)</label>
+              <input id="keywords" name="キーワード" type="text" placeholder="例:信頼 / 革新 / 温かみ">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 03 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 03</div>
+            <h2 class="form-section__title">参考・補足</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label for="motif">含めたいモチーフ・要素</label>
+              <input id="motif" name="モチーフ" type="text" placeholder="例:山 / 鳥 / イニシャル A / 円形">
+            </div>
+
+            <div class="field">
+              <label for="reference">参考にしたいブランド・デザイン</label>
+              <textarea id="reference" name="参考" placeholder="例:Apple のような余白感 / スターバックスのようなシンボル性"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="ng">避けたい表現・NG要素</label>
+              <input id="ng" name="NG要素" type="text" placeholder="例:派手すぎるもの / 赤系は不可">
+            </div>
+
+            <div class="field">
+              <label for="note">その他、伝えたいこと</label>
+              <textarea id="note" name="自由記述"></textarea>
+            </div>
+
+            <div class="field field--required">
+              <label for="email">ご連絡先メールアドレス</label>
+              <input id="email" name="メールアドレス" type="email" required autocomplete="email">
+              <div class="field__hint">ラフ3案の納品先になります。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="create.html" class="form-back">← 戻る</a>
+          <button type="submit" class="btn btn--primary">ラフ3案を生成する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div>
+        <div class="site-footer__brand"></div>
+        <div class="site-footer__tag">手軽に起業できる世界のために。</div>
+      </div>
+      <nav class="site-footer__nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260507-3"></script>
+<script src="assets/js/submit.js?v=20260507-3"></script>
+</body>
+</html>

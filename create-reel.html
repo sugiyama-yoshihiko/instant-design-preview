@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>リール動画制作 — Instant Design</title>
+  <meta name="description" content="リール動画制作のためのヒアリング。所要時間5分。">
+  <link rel="stylesheet" href="assets/css/main.css?v=20260507-3">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow reveal">Step 02 / リール動画制作</div>
+      <h1 class="page-head__title reveal">あなたのリール動画を<br>つくります。</h1>
+      <p class="prose reveal" style="text-align:center; color:var(--color-muted); margin-top:var(--sp-4);">
+        所要時間 約5分。回答後にAIがラフを3案生成します。<br>
+        わかる範囲でかまいません。空欄の項目はAIが補完します。
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form class="form-page"
+            data-product-kind="reel"
+            action="#"
+            method="POST">
+        <input type="hidden" name="_subject" value="【Instant Design】リール動画制作リクエスト">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="thanks.html">
+        <input type="hidden" name="制作種別" value="リール動画 (¥15,000)">
+
+        <!-- Section 01 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 01</div>
+            <h2 class="form-section__title">基本情報</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="purpose">動画の目的</label>
+              <input id="purpose" name="目的" type="text" required placeholder="例:商品紹介 / サービス告知 / 採用 / ブランディング">
+            </div>
+
+            <div class="field field--required">
+              <label for="brand-name">会社名 / ブランド名 / サービス名</label>
+              <input id="brand-name" name="ブランド名" type="text" required>
+            </div>
+
+            <div class="field">
+              <label>動画の長さ</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="長さ" value="15秒"><span class="chip">15秒</span></label>
+                <label><input type="radio" name="長さ" value="30秒" checked><span class="chip">30秒</span></label>
+                <label><input type="radio" name="長さ" value="60秒"><span class="chip">60秒</span></label>
+                <label><input type="radio" name="長さ" value="90秒"><span class="chip">90秒</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>掲載先プラットフォーム(複数可)</label>
+              <div class="chip-group" role="group">
+                <label><input type="checkbox" name="掲載先" value="Instagram Reels"><span class="chip">Instagram Reels</span></label>
+                <label><input type="checkbox" name="掲載先" value="TikTok"><span class="chip">TikTok</span></label>
+                <label><input type="checkbox" name="掲載先" value="YouTube Shorts"><span class="chip">YouTube Shorts</span></label>
+                <label><input type="checkbox" name="掲載先" value="X(Twitter)"><span class="chip">X(Twitter)</span></label>
+                <label><input type="checkbox" name="掲載先" value="LINE VOOM"><span class="chip">LINE VOOM</span></label>
+                <label><input type="checkbox" name="掲載先" value="Webサイト埋め込み"><span class="chip">Webサイト埋め込み</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>画面比率</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="比率" value="9:16(縦)" checked><span class="chip">9:16(縦)</span></label>
+                <label><input type="radio" name="比率" value="1:1(正方形)"><span class="chip">1:1(正方形)</span></label>
+                <label><input type="radio" name="比率" value="16:9(横)"><span class="chip">16:9(横)</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 02 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 02</div>
+            <h2 class="form-section__title">伝えたい内容</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="message">一番伝えたいメッセージ</label>
+              <input id="message" name="メッセージ" type="text" required placeholder="例:7月1日、新オープン!">
+            </div>
+
+            <div class="field field--required">
+              <label for="story">動画のストーリー / 構成</label>
+              <textarea id="story" name="ストーリー" required placeholder="どんな順番で何を見せたいか、ざっくりでOK。例: 1)商品アップ 2)使用シーン 3)価格 4)Webへ"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="cta">最後に伝えたいこと(CTA)</label>
+              <input id="cta" name="CTA" type="text" placeholder="例:プロフィールから予約 / フォローしてね / Webサイトへ">
+            </div>
+
+            <div class="field">
+              <label>ナレーション・字幕</label>
+              <div class="chip-group" role="group">
+                <label><input type="checkbox" name="音声字幕" value="字幕あり"><span class="chip">字幕あり</span></label>
+                <label><input type="checkbox" name="音声字幕" value="ナレーションあり(AI音声)"><span class="chip">ナレーション(AI音声)</span></label>
+                <label><input type="checkbox" name="音声字幕" value="ナレーションあり(自前音源)"><span class="chip">ナレーション(自前音源)</span></label>
+                <label><input type="checkbox" name="音声字幕" value="無音でもOK"><span class="chip">無音でもOK</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="caption">字幕・ナレーション原稿(あれば)</label>
+              <textarea id="caption" name="原稿" placeholder="読み上げてほしい台本があれば貼り付け"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 03 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 03</div>
+            <h2 class="form-section__title">雰囲気・デザイン</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label>BGMの雰囲気</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="BGM" value="アップテンポ"><span class="chip">アップテンポ</span></label>
+                <label><input type="radio" name="BGM" value="落ち着き"><span class="chip">落ち着き</span></label>
+                <label><input type="radio" name="BGM" value="ドラマチック"><span class="chip">ドラマチック</span></label>
+                <label><input type="radio" name="BGM" value="おしゃれ"><span class="chip">おしゃれ</span></label>
+                <label><input type="radio" name="BGM" value="エモーショナル"><span class="chip">エモーショナル</span></label>
+                <label><input type="radio" name="BGM" value="ポップで楽しい"><span class="chip">ポップで楽しい</span></label>
+                <label><input type="radio" name="BGM" value="BGMなし"><span class="chip">BGMなし</span></label>
+                <label><input type="radio" name="BGM" value="お任せ" checked><span class="chip">お任せ</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>映像のテイスト(複数可)</label>
+              <div class="chip-group" role="group">
+                <label><input type="checkbox" name="映像テイスト" value="シネマティック"><span class="chip">シネマティック</span></label>
+                <label><input type="checkbox" name="映像テイスト" value="ミニマル"><span class="chip">ミニマル</span></label>
+                <label><input type="checkbox" name="映像テイスト" value="ダイナミック"><span class="chip">ダイナミック</span></label>
+                <label><input type="checkbox" name="映像テイスト" value="ナチュラル"><span class="chip">ナチュラル</span></label>
+                <label><input type="checkbox" name="映像テイスト" value="モーショングラフィック"><span class="chip">モーショングラフィック</span></label>
+                <label><input type="checkbox" name="映像テイスト" value="ドキュメンタリー風"><span class="chip">ドキュメンタリー風</span></label>
+                <label><input type="checkbox" name="映像テイスト" value="POPで楽しい"><span class="chip">POPで楽しい</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>使用素材</label>
+              <div class="chip-group" role="group">
+                <label><input type="radio" name="素材" value="撮影済み素材を提供"><span class="chip">撮影済み素材を提供</span></label>
+                <label><input type="radio" name="素材" value="写真のみ提供"><span class="chip">写真のみ提供</span></label>
+                <label><input type="radio" name="素材" value="AI生成素材でOK" checked><span class="chip">AI生成素材でOK</span></label>
+                <label><input type="radio" name="素材" value="ストック素材でOK"><span class="chip">ストック素材でOK</span></label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="color-detail">ブランドカラー / 指定カラー</label>
+              <input id="color-detail" name="指定カラー" type="text" placeholder="例:#FF5A1F / 紺色">
+            </div>
+
+            <div class="field">
+              <label for="target">想定する視聴者</label>
+              <input id="target" name="ターゲット" type="text" placeholder="例:20代女性、感度高め">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 04 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 04</div>
+            <h2 class="form-section__title">参考・補足</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label for="reference">参考にしたい動画・URL</label>
+              <textarea id="reference" name="参考" placeholder="参考リンクや、こういう雰囲気にしたいという説明を自由に"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="ng">避けたい表現・NG要素</label>
+              <input id="ng" name="NG要素" type="text">
+            </div>
+
+            <div class="field">
+              <label for="note">その他、伝えたいこと</label>
+              <textarea id="note" name="自由記述"></textarea>
+            </div>
+
+            <div class="field field--required">
+              <label for="email">ご連絡先メールアドレス</label>
+              <input id="email" name="メールアドレス" type="email" required autocomplete="email">
+              <div class="field__hint">ラフ3案の納品先になります。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="create.html" class="form-back">← 戻る</a>
+          <button type="submit" class="btn btn--primary">ラフ3案を生成する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div>
+        <div class="site-footer__brand"></div>
+        <div class="site-footer__tag">手軽に起業できる世界のために。</div>
+      </div>
+      <nav class="site-footer__nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260507-3"></script>
+<script src="assets/js/submit.js?v=20260507-3"></script>
+</body>
+</html>

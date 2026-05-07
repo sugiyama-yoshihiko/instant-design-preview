@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ラフ3案 — Instant Design</title>
+  <link rel="stylesheet" href="assets/css/main.css?v=20260507-3">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow">Step 03 / ラフ3案</div>
+      <h1 class="page-head__title" id="result-title">生成中…</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div id="status" class="result-status">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="result-status__msg">AIがラフ3案を生成しています。</p>
+        <p class="result-status__sub">背景画像の生成に60〜120秒ほどかかります。</p>
+      </div>
+
+      <div id="drafts" class="drafts" style="display:none;"></div>
+
+      <div id="actions" style="display:none; text-align:center; margin-top:var(--sp-7);">
+        <a href="create.html" class="btn btn--ghost">最初から選び直す</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div>
+        <div class="site-footer__brand"></div>
+        <div class="site-footer__tag">手軽に起業できる世界のために。</div>
+      </div>
+      <nav class="site-footer__nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260507-3"></script>
+<script>
+(() => {
+  const API_BASE = "http://localhost:3000";
+  const KIND_TO_LABEL = { flyer: "チラシ", logo: "ロゴ", reel: "リール動画" };
+
+  const statusEl = document.getElementById("status");
+  const draftsEl = document.getElementById("drafts");
+  const actionsEl = document.getElementById("actions");
+  const titleEl = document.getElementById("result-title");
+  const msgEl = statusEl.querySelector(".result-status__msg");
+  const subEl = statusEl.querySelector(".result-status__sub");
+
+  const pendingRaw = sessionStorage.getItem("instantDesign:pending");
+  if (!pendingRaw) {
+    titleEl.textContent = "リクエストが見つかりません";
+    msgEl.textContent = "もう一度フォームから入力してください。";
+    statusEl.querySelector(".spinner").style.display = "none";
+    actionsEl.style.display = "block";
+    return;
+  }
+
+  const pending = JSON.parse(pendingRaw);
+  const kind = pending.kind;
+  const label = KIND_TO_LABEL[kind] || "デザイン";
+  titleEl.textContent = `${label}のラフ3案を生成中…`;
+
+  fetch(`${API_BASE}/api/generate/${kind}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(pending.form || {}),
+  })
+    .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+    .then(({ ok, data }) => {
+      if (!ok) throw new Error(data.error || "生成に失敗しました");
+      sessionStorage.removeItem("instantDesign:pending");
+      sessionStorage.setItem("instantDesign:result", JSON.stringify({ ...data, form: pending.form }));
+      renderDrafts(data);
+    })
+    .catch((err) => {
+      titleEl.textContent = "生成に失敗しました";
+      msgEl.textContent = err.message;
+      subEl.textContent = "バックエンドが起動しているか確認してください(http://localhost:3000/api/health)。";
+      statusEl.querySelector(".spinner").style.display = "none";
+      actionsEl.style.display = "block";
+    });
+
+  function renderDrafts(data) {
+    titleEl.textContent = `${label}のラフ3案`;
+    statusEl.style.display = "none";
+    draftsEl.style.display = "grid";
+    actionsEl.style.display = "block";
+
+    draftsEl.innerHTML = "";
+    data.drafts.forEach((d, i) => {
+      const article = document.createElement("article");
+      article.className = "draft";
+      article.innerHTML = `
+        <a class="draft__media" href="${API_BASE}${d.url}" target="_blank" rel="noopener" data-aspect="${data.aspect || '1:1'}" style="background:${escapeAttr(d.bg_color || '#fafafa')}">
+          <img src="${API_BASE}${d.url}" alt="${escapeAttr(d.title)}" loading="lazy">
+          <div class="text-overlay" data-overlay></div>
+        </a>
+        <div class="draft__body">
+          <div class="draft__num">DRAFT 0${i + 1}</div>
+          <h2 class="draft__title">${escapeHtml(d.title || `案 ${i + 1}`)}</h2>
+          <button class="draft__select" data-index="${i}">この案で進める</button>
+        </div>
+      `;
+      draftsEl.appendChild(article);
+      // テキストレイヤーを描画
+      const overlay = article.querySelector("[data-overlay]");
+      renderLayers(d.layers || [], overlay);
+    });
+
+    draftsEl.querySelectorAll(".draft__select").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.dataset.index);
+        sessionStorage.setItem("instantDesign:selectedIndex", String(idx));
+        location.href = "select.html";
+      });
+    });
+  }
+
+  function renderLayers(layers, container) {
+    layers.forEach((l) => {
+      if (!l || !l.text) return;
+      const el = document.createElement("span");
+      el.className = "overlay-text";
+      el.textContent = l.text;
+      const fontFamilyMap = {
+        serif: '"Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif',
+        display: '"Helvetica Neue", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif',
+        "sans-serif": '"Hiragino Sans", "Yu Gothic UI", "YuGothic", system-ui, sans-serif',
+      };
+      const ff = fontFamilyMap[l.fontFamily] || fontFamilyMap["sans-serif"];
+
+      Object.assign(el.style, {
+        left:           `${(l.x ?? 0.5) * 100}%`,
+        top:            `${(l.y ?? 0.5) * 100}%`,
+        width:          `${(l.width ?? 0.85) * 100}%`,
+        fontSize:       `${(l.fontSize ?? 0.04) * 100}cqw`,
+        color:          l.color || "#111",
+        fontWeight:     l.weight === "bold" ? "700" : "400",
+        textAlign:      l.align || "center",
+        fontFamily:     ff,
+        letterSpacing:  l.letterSpacing != null ? `${l.letterSpacing}em` : "0",
+      });
+      container.appendChild(el);
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[c]);
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+})();
+</script>
+</body>
+</html>
