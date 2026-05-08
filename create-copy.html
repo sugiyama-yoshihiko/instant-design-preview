@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>キャッチコピー制作 — Instant Design</title>
+  <meta name="description" content="ブランドエッセイ + 3つのキャッチコピー候補 + チラシ/ロゴ用テンプレを一度に生成。">
+  <link rel="stylesheet" href="assets/css/main.css?v=20260508-1">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow reveal">Step 02 / キャッチコピー制作</div>
+      <h1 class="page-head__title reveal">あなたのブランドの<br>「言葉」をつくります。</h1>
+      <p class="prose reveal" style="text-align:center; color:var(--color-muted); margin-top:var(--sp-4);">
+        所要時間 約3〜5分。回答後にAIがエッセイ + キャッチコピー候補3案 + チラシ/ロゴ用テンプレを生成します。<br>
+        わかる範囲でかまいません。空欄の項目はAIが補完します。
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <form class="form-page"
+            data-product-kind="copy"
+            action="#"
+            method="POST">
+
+        <!-- Section 01 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 01</div>
+            <h2 class="form-section__title">基本情報</h2>
+          </div>
+
+          <p class="section-callout">
+            <strong>「表示」のついた項目は、生成されたコピーやエッセイにそのまま使われます。</strong><br>
+            「設計に反映」の項目は、文体やトーン、ターゲット感を決めるための情報として使われます。
+          </p>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="brand-name">ブランド名 / 店舗名 / サービス名<span class="field__badge">表示</span></label>
+              <input id="brand-name" name="ブランド名" type="text" required>
+            </div>
+
+            <div class="field field--required">
+              <label for="industry">業種・事業内容<span class="field__badge field__badge--style">設計に反映</span></label>
+              <input id="industry" name="業種" type="text" required placeholder="例:サードウェーブ系の自家焙煎カフェ">
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 02 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 02</div>
+            <h2 class="form-section__title">想いと特徴</h2>
+            <p class="form-section__desc">ここが一番大切です。AIが「言葉」を立ち上げる原料になります。</p>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field field--required">
+              <label for="story">始めた理由・想い・こだわり<span class="field__badge field__badge--style">設計に反映</span></label>
+              <textarea id="story" name="想い" required placeholder="例:祖父が淹れてくれた一杯のコーヒーが原点。 / 急がない時間を、街角に届けたい。 / 自分が30代になって本当に落ち着ける場所がなかった、だから作る。"></textarea>
+              <div class="field__hint">2〜5文程度。きれいに書く必要はありません。素のことばで。</div>
+            </div>
+
+            <div class="field">
+              <label for="features">サービス・商品の特徴<span class="field__badge field__badge--style">設計に反映</span></label>
+              <textarea id="features" name="特徴" placeholder="例:浅煎り中心の自家焙煎 / 15時以降はワインも提供 / 全席カウンター8席のみ"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 03 -->
+        <div class="form-section">
+          <div class="form-section__head">
+            <div class="form-section__num">SECTION 03</div>
+            <h2 class="form-section__title">届けたい相手・世界観</h2>
+          </div>
+
+          <div class="form" style="margin:0;">
+            <div class="field">
+              <label for="target">ターゲット(漠然とでも)<span class="field__badge field__badge--style">設計に反映</span></label>
+              <input id="target" name="ターゲット" type="text" placeholder="例:30代前半・都内在住・週末は美術館巡り">
+              <div class="field__hint">「1人の顔が浮かぶ粒度」で書くほど精度が上がります。</div>
+            </div>
+
+            <div class="field">
+              <label for="mood">こうなりたい雰囲気・世界観<span class="field__badge field__badge--style">設計に反映</span></label>
+              <input id="mood" name="雰囲気" type="text" placeholder="例:静謐 / 余白 / 北欧の朝">
+              <div class="field__hint">3つ以内のキーワードがおすすめ。</div>
+            </div>
+
+            <div class="field">
+              <label for="existing">既にあるキャッチ・タグライン</label>
+              <input id="existing" name="既存" type="text" placeholder="あれば。なければ空欄でOK">
+            </div>
+
+            <div class="field">
+              <label for="note">その他、伝えたいこと</label>
+              <textarea id="note" name="自由記述"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="email">ご連絡先メールアドレス(任意)</label>
+              <input id="email" name="メールアドレス" type="email" autocomplete="email">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <a href="create.html" class="form-back">← 戻る</a>
+          <button type="submit" class="btn btn--primary">キャッチコピーを生成する</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div>
+        <div class="site-footer__brand"></div>
+        <div class="site-footer__tag">手軽に起業できる世界のために。</div>
+      </div>
+      <nav class="site-footer__nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260508-1"></script>
+<script src="assets/js/submit.js?v=20260508-1"></script>
+</body>
+</html>

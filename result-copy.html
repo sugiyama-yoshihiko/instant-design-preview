@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ja" data-brand="Instant Design" data-tagline="手軽に起業できる世界のために。">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>キャッチコピー結果 — Instant Design</title>
+  <link rel="stylesheet" href="assets/css/main.css?v=20260508-1">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="brand" aria-label="Instant Design"></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow">Step 03 / キャッチコピー</div>
+      <h1 class="page-head__title" id="result-title">生成中…</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div id="status" class="result-status">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="result-status__msg">AIが「言葉」を立ち上げています。</p>
+        <p class="result-status__sub">通常 10〜30 秒ほどで完成します。</p>
+      </div>
+
+      <div id="result" style="display:none;">
+        <!-- キャッチコピー候補 -->
+        <div class="copy-block">
+          <div class="copy-block__head">
+            <div class="copy-block__num">CATCHPHRASES</div>
+            <h2 class="copy-block__title">3つのキャッチコピー</h2>
+          </div>
+          <div class="catch-list" id="catch-list"></div>
+        </div>
+
+        <!-- タグライン -->
+        <div class="copy-block">
+          <div class="copy-block__head">
+            <div class="copy-block__num">TAGLINE</div>
+            <h2 class="copy-block__title">タグライン</h2>
+          </div>
+          <div class="copy-card">
+            <p class="copy-card__text" id="tagline"></p>
+            <button class="copy-card__btn" data-copy-target="tagline">コピー</button>
+          </div>
+        </div>
+
+        <!-- エッセイ -->
+        <div class="copy-block">
+          <div class="copy-block__head">
+            <div class="copy-block__num">ESSAY</div>
+            <h2 class="copy-block__title">ブランドエッセイ</h2>
+          </div>
+          <div class="copy-card">
+            <p class="copy-card__text copy-card__text--essay" id="essay"></p>
+            <button class="copy-card__btn" data-copy-target="essay">エッセイをコピー</button>
+          </div>
+        </div>
+
+        <!-- 次へつなぐ -->
+        <div class="copy-block">
+          <div class="copy-block__head">
+            <div class="copy-block__num">NEXT STEP</div>
+            <h2 class="copy-block__title">このコピーで、デザインへ。</h2>
+            <p class="form-section__desc" style="margin-top:var(--sp-3);">
+              生成されたテンプレを使って、チラシやロゴを制作できます。<br>
+              ボタンを押すと、フォームに自動で値が入った状態で開きます。
+            </p>
+          </div>
+          <div class="next-actions">
+            <button class="btn btn--primary" id="go-flyer">02 チラシを作る(¥3,000)</button>
+            <button class="btn btn--ghost"  id="go-logo">03 ロゴを作る(¥5,000)</button>
+          </div>
+          <details class="template-detail">
+            <summary>生成されたチラシ用テンプレを見る</summary>
+            <pre class="template-pre" id="flyer-template-pre"></pre>
+          </details>
+          <details class="template-detail">
+            <summary>生成されたロゴ用テンプレを見る</summary>
+            <pre class="template-pre" id="logo-template-pre"></pre>
+          </details>
+        </div>
+
+        <div style="text-align:center; margin-top:var(--sp-7);">
+          <a href="create-copy.html" class="btn btn--ghost">最初から作り直す</a>
+        </div>
+      </div>
+
+      <div id="error-box" style="display:none; text-align:center;">
+        <p id="error-msg" style="color:var(--color-fg); font-size:var(--fs-lg);"></p>
+        <p style="color:var(--color-muted); font-size:var(--fs-sm); margin-top:var(--sp-3);">
+          バックエンドが起動しているか確認してください(http://localhost:3000/api/health)。
+        </p>
+        <p style="margin-top:var(--sp-5);"><a href="create-copy.html" class="btn btn--ghost">フォームに戻る</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__copy">© 2026 Instant Design. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js?v=20260508-1"></script>
+<script>
+(() => {
+  const API_BASE = "http://localhost:3000";
+
+  const statusEl = document.getElementById("status");
+  const resultEl = document.getElementById("result");
+  const errEl    = document.getElementById("error-box");
+  const errMsg   = document.getElementById("error-msg");
+  const titleEl  = document.getElementById("result-title");
+
+  const pendingRaw = sessionStorage.getItem("instantDesign:pending");
+  if (!pendingRaw) { location.href = "create-copy.html"; return; }
+  const pending = JSON.parse(pendingRaw);
+  if (pending.kind !== "copy") { location.href = "result.html"; return; }
+
+  titleEl.textContent = "あなたの「言葉」を生成中…";
+
+  fetch(`${API_BASE}/api/generate/copy`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(pending.form || {}),
+  })
+    .then((r) => r.json().then((data) => ({ ok: r.ok, data })))
+    .then(({ ok, data }) => {
+      if (!ok) throw new Error(data.error || "生成に失敗しました");
+      sessionStorage.removeItem("instantDesign:pending");
+      sessionStorage.setItem("instantDesign:copy", JSON.stringify(data.result));
+      render(data.result);
+    })
+    .catch((err) => {
+      titleEl.textContent = "生成に失敗しました";
+      statusEl.style.display = "none";
+      errEl.style.display = "block";
+      errMsg.textContent = err.message;
+    });
+
+  function render(r) {
+    titleEl.textContent = "あなたの「言葉」";
+    statusEl.style.display = "none";
+    resultEl.style.display = "block";
+
+    const list = document.getElementById("catch-list");
+    list.innerHTML = (r.catchphrases || []).map((c, i) => `
+      <div class="catch-item">
+        <span class="catch-item__num">0${i + 1}</span>
+        <span class="catch-item__text">${escapeHtml(c)}</span>
+        <button class="catch-item__btn" data-copy-text="${escapeAttr(c)}">コピー</button>
+      </div>
+    `).join("");
+
+    document.getElementById("tagline").textContent = r.tagline || "";
+    document.getElementById("essay").textContent  = r.essay   || "";
+
+    document.getElementById("flyer-template-pre").textContent = JSON.stringify(r.flyer_template || {}, null, 2);
+    document.getElementById("logo-template-pre").textContent  = JSON.stringify(r.logo_template  || {}, null, 2);
+
+    // クリップボードコピー
+    document.querySelectorAll("[data-copy-text]").forEach((btn) => {
+      btn.addEventListener("click", () => copyToClipboard(btn.dataset.copyText, btn));
+    });
+    document.querySelectorAll("[data-copy-target]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const el = document.getElementById(btn.dataset.copyTarget);
+        copyToClipboard(el.textContent, btn);
+      });
+    });
+
+    // 次のステップ:プレフィル
+    document.getElementById("go-flyer").addEventListener("click", () => {
+      sessionStorage.setItem("instantDesign:prefill:flyer", JSON.stringify(r.flyer_template || {}));
+      location.href = "create-flyer.html";
+    });
+    document.getElementById("go-logo").addEventListener("click", () => {
+      sessionStorage.setItem("instantDesign:prefill:logo", JSON.stringify(r.logo_template || {}));
+      location.href = "create-logo.html";
+    });
+  }
+
+  async function copyToClipboard(text, btn) {
+    try {
+      await navigator.clipboard.writeText(text);
+      const orig = btn.textContent;
+      btn.textContent = "コピー済";
+      setTimeout(() => { btn.textContent = orig; }, 1500);
+    } catch (e) {
+      alert("コピーに失敗しました");
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s ?? "").replace(/[&<>"']/g, (c) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[c]);
+  }
+  function escapeAttr(s) { return escapeHtml(s); }
+})();
+</script>
+</body>
+</html>
