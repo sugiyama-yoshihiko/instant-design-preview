@@ -1,0 +1,87 @@
+# ==========================================================================
+# Decap CMS 設定ファイル
+# ==========================================================================
+#
+# 編集モード:
+#   ローカル(即試せる):
+#     1. cd "/Users/sugiyamahitoshihiko/Downloads/業務委託、就職/instant-design-site"
+#     2. python3 -m http.server 8001  ← フロント
+#     3. 別ターミナルで: npx decap-server  ← CMS のローカルブリッジ
+#     4. ブラウザで http://localhost:8001/admin/ を開く
+#     → 認証不要、フォーム編集して保存すると repo 内のファイルが直接書き換わる
+#
+#   本番(公開URLから誰でも編集):
+#     local_backend を false にし、GitHub OAuth App を登録して
+#     Cloudflare Worker などに OAuth プロキシをデプロイして接続(後日タスク)
+#
+# ==========================================================================
+
+# ローカルブリッジ経由で動作させるフラグ(本番化時は false)
+local_backend: true
+
+# 本番用バックエンド設定(OAuth完了後に有効化される)
+backend:
+  name: github
+  repo: sugiyama-yoshihiko/instant-design-preview
+  branch: main
+
+# メディア(画像)アップロード先
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+# UI 言語(日本語化)
+locale: 'ja'
+
+# ==========================================================================
+# 編集できるコレクション
+# ==========================================================================
+collections:
+
+  # ----- サイト基本情報 -----
+  - name: "site"
+    label: "サイト基本情報"
+    files:
+      - file: "content/site.json"
+        label: "トップページ・共通"
+        name: "site"
+        format: "json"
+        fields:
+          - { label: "ブランド名", name: "brand_name", widget: "string", hint: "ヘッダー・フッターに表示される" }
+          - { label: "タグライン", name: "tagline", widget: "string" }
+          - { label: "Hero バッジ", name: "hero_badge", widget: "string", default: "Coming Soon" }
+          - { label: "Hero タイトル(1行目)", name: "hero_title_1", widget: "string" }
+          - { label: "Hero タイトル(2行目)", name: "hero_title_2", widget: "string" }
+          - { label: "Hero 説明文", name: "hero_lead", widget: "text" }
+          - { label: "Coming Soon 見出し", name: "coming_title", widget: "string" }
+          - { label: "Coming Soon 説明", name: "coming_desc", widget: "text" }
+
+  # ----- 価格表 -----
+  - name: "pricing"
+    label: "価格表"
+    files:
+      - file: "content/pricing.json"
+        label: "プロダクト一覧"
+        name: "pricing"
+        format: "json"
+        fields:
+          - label: "プロダクト"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}} - ¥{{fields.price}}"
+            fields:
+              - { label: "プロダクト名", name: "name", widget: "string" }
+              - { label: "価格(円)", name: "price", widget: "number", value_type: "int" }
+
+  # ----- About ページ -----
+  - name: "about"
+    label: "About ページ"
+    files:
+      - file: "content/about.md"
+        label: "About 本文"
+        name: "about"
+        fields:
+          - { label: "見出し(1行目)", name: "title_1", widget: "string" }
+          - { label: "見出し(2行目)", name: "title_2", widget: "string" }
+          - label: "本文(Markdown)"
+            name: "body"
+            widget: "markdown"

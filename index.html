@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Instant Design — 手軽に起業できる世界のために。</title>
   <meta name="description" content="キャッチコピー・チラシ・ロゴを、AI対話で数分以内に。起業家のためのセルフサービス型デザインプラットフォーム。">
-  <link rel="stylesheet" href="assets/css/main.css?v=20260508-1">
+  <link rel="stylesheet" href="assets/css/main.css?v=20260508-2">
 </head>
 <body>
 
@@ -25,12 +25,10 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container container--narrow">
-      <div class="hero__badge reveal">Coming Soon</div>
-      <h1 class="hero__title reveal">手軽に起業できる<br><em>世界のために。</em></h1>
-      <p class="hero__lead reveal">
-        キャッチコピー・チラシ・ロゴを、<br>
-        AIとの対話で数分以内に。<br>
-        起業家のためのセルフサービス型デザインプラットフォーム。
+      <div class="hero__badge reveal" data-content="hero_badge">Coming Soon</div>
+      <h1 class="hero__title reveal"><span data-content="hero_title_1">手軽に起業できる</span><br><em data-content="hero_title_2">世界のために。</em></h1>
+      <p class="hero__lead reveal" data-content="hero_lead">
+        キャッチコピー・チラシ・ロゴを、AIとの対話で数分以内に。起業家のためのセルフサービス型デザインプラットフォーム。
       </p>
       <div class="hero__actions reveal">
         <a href="contact.html" class="btn btn--primary">先行登録する</a>
@@ -84,19 +82,11 @@
         <div class="s-head__eyebrow">Pricing Preview</div>
         <h2 class="s-head__title">明朗な価格設定。</h2>
       </div>
-      <div class="pricing">
-        <div class="price reveal">
-          <div class="price__name">キャッチコピー</div>
-          <div class="price__amount">¥2,000<span> /件</span></div>
-        </div>
-        <div class="price reveal">
-          <div class="price__name">チラシ</div>
-          <div class="price__amount">¥3,000<span> /件</span></div>
-        </div>
-        <div class="price reveal">
-          <div class="price__name">ロゴ</div>
-          <div class="price__amount">¥5,000<span> /件</span></div>
-        </div>
+      <div class="pricing" data-content="pricing">
+        <!-- content/pricing.json から動的に描画されます。CMSで編集可能。 -->
+        <div class="price reveal"><div class="price__name">キャッチコピー</div><div class="price__amount">¥2,000<span> /件</span></div></div>
+        <div class="price reveal"><div class="price__name">チラシ</div><div class="price__amount">¥3,000<span> /件</span></div></div>
+        <div class="price reveal"><div class="price__name">ロゴ</div><div class="price__amount">¥5,000<span> /件</span></div></div>
       </div>
     </div>
   </section>
@@ -106,10 +96,9 @@
     <div class="container container--narrow">
       <div class="coming reveal">
         <div class="coming__label">Coming Soon</div>
-        <h2 class="coming__title">サービス開始までもう少し。</h2>
-        <p class="coming__desc">
-          現在 Instant Design は開発中です。<br>
-          リリース時にいち早くお知らせします。先行登録はこちらから。
+        <h2 class="coming__title" data-content="coming_title">サービス開始までもう少し。</h2>
+        <p class="coming__desc" data-content="coming_desc">
+          現在 Instant Design は開発中です。リリース時にいち早くお知らせします。先行登録はこちらから。
         </p>
         <a href="contact.html" class="btn btn--primary">先行登録する</a>
       </div>
@@ -132,7 +121,7 @@
       </nav>
     </div>
     <div class="site-footer__pricing-title">Pricing Preview</div>
-    <div class="pricing">
+    <div class="pricing" data-content="pricing" data-compact="true">
       <div class="price"><div class="price__name">キャッチコピー</div><div class="price__amount">¥2,000</div></div>
       <div class="price"><div class="price__name">チラシ</div><div class="price__amount">¥3,000</div></div>
       <div class="price"><div class="price__name">ロゴ</div><div class="price__amount">¥5,000</div></div>
@@ -141,6 +130,7 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260508-1"></script>
+<script src="assets/js/main.js?v=20260508-2"></script>
+<script src="assets/js/content.js?v=20260508-2"></script>
 </body>
 </html>
